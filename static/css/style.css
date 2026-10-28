@@ -25,7 +25,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
 body {
   margin: 0;
   background: var(--preto);
@@ -34,6 +35,8 @@ body {
   font-size: 16px;
   line-height: 1.65;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 img, video { max-width: 100%; display: block; }
@@ -416,8 +419,16 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
 .faq details[open] { border-color: rgba(243,220,107,.4); background: #100e09; }
 .faq summary { list-style: none; cursor: pointer; padding: 22px 60px 22px 24px; position: relative; color: var(--branco); font-weight: 600; font-size: 1.02rem; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(243,220,107,.4); display: grid; place-items: center; color: var(--ouro-claro); font-size: 18px; font-weight: 400; transition: transform .35s; }
-.faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq summary::after {
+  content: ""; position: absolute; right: 22px; top: 50%; width: 30px; height: 30px; margin-top: -15px; box-sizing: border-box;
+  border-radius: 50%; border: 1px solid rgba(243,220,107,.45);
+  background:
+    linear-gradient(var(--ouro-claro), var(--ouro-claro)) center / 12px 1.5px no-repeat,
+    linear-gradient(var(--ouro-claro), var(--ouro-claro)) center / 1.5px 12px no-repeat;
+  transition: transform .35s, background-color .35s;
+}
+.faq details[open] summary::after { transform: rotate(45deg); background-color: rgba(243,220,107,.08); }
+@media (max-width: 600px) { .faq summary { padding: 18px 56px 18px 18px; font-size: .97rem; } .faq summary::after { right: 16px; } .faq .resposta { padding: 0 18px 18px; } }
 .faq .resposta { padding: 0 24px 22px; color: var(--texto-suave); }
 
 /* ---------- CTA final ---------- */
@@ -444,7 +455,7 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
 /* ---------- WhatsApp flutuante ---------- */
 .wa-flutuante {
   position: fixed; right: 20px; bottom: 20px; z-index: 90;
-  display: flex; align-items: center; gap: 10px; padding: 0; border-radius: 999px;
+  display: flex; align-items: center; gap: 0; padding: 0; border-radius: 999px; overflow: visible;
   background: #25d366; color: #fff; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6);
   transform: translateY(120px); transition: transform .5s cubic-bezier(.2,.8,.2,1);
 }
@@ -453,7 +464,7 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
 .wa-flutuante .ico::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #25d366; animation: onda 2s infinite; }
 .wa-flutuante svg { width: 30px; height: 30px; }
 .wa-flutuante .txt { max-width: 0; overflow: hidden; white-space: nowrap; font-weight: 600; font-size: 14px; transition: max-width .5s ease, padding .5s ease; }
-.wa-flutuante:hover .txt { max-width: 200px; padding-left: 20px; }
+.wa-flutuante:hover .txt { max-width: 200px; padding-left: 20px; padding-right: 4px; }
 @keyframes onda { to { transform: scale(1.6); opacity: 0; } }
 
 /* ---------- Barra fixa mobile ---------- */
