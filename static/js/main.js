@@ -268,4 +268,15 @@
     }, { threshold: 0.05 });
     document.querySelectorAll("video[data-auto]").forEach(function (v) { ioV.observe(v); });
   }
+
+  // embed do Instagram avisa a própria altura por postMessage; ajusta o iframe para não sobrar branco
+  window.addEventListener("message", function (e) {
+    if (!/instagram\.com$/.test(new URL(e.origin).hostname)) return;
+    var d;
+    try { d = typeof e.data === "string" ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+    if (!d || d.type !== "MEASURE" || !d.details || !d.details.height) return;
+    document.querySelectorAll(".insta-video iframe").forEach(function (f) {
+      if (f.contentWindow === e.source) f.style.height = Math.ceil(d.details.height) + "px";
+    });
+  });
 })();

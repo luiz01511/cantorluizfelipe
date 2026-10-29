@@ -9,7 +9,7 @@ Site estático (HTML + CSS + JS), hospedado no GitHub Pages, sem servidor.
 | -------------- | ------------------------------------------------ |
 | `/`            | Página principal de venda do show                |
 | `/sobre/`      | História e trajetória                            |
-| `/videos/`     | Vídeos ao vivo (A Fazenda 17, Gaviões, casas)    |
+| `/videos/`     | Vídeos ao vivo (A Fazenda 17, Camisa 12, casas)    |
 | `/galeria/`    | Fotos de palco e ensaio                          |
 | `/contratar/`  | Pedido de orçamento em 4 passos → WhatsApp       |
 
