@@ -374,10 +374,11 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
 .formato .tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); padding: 6px 16px; border-radius: 999px; background: var(--gradiente-ouro); color: #1a1205; font-family: var(--fonte-tech); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
 .formato h3 { font-family: var(--fonte-titulo); font-size: 2rem; font-weight: 600; color: var(--branco); margin: 0 0 6px; }
 .formato .sub { color: var(--ouro-claro); font-family: var(--fonte-tech); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 20px; }
-.formato ul { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 11px; flex: 1; }
+.formato ul { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 11px; flex: 1; align-content: start; }
 .formato li { padding-left: 26px; position: relative; color: var(--texto); font-size: 15px; }
 .formato li::before { content: "✦"; position: absolute; left: 0; color: var(--ouro); font-size: 12px; top: 2px; }
-@media (max-width: 900px) { .formatos { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; gap: 30px; } }
+.formatos.dois { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto; }
+@media (max-width: 900px) { .formatos, .formatos.dois { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; gap: 30px; } }
 
 /* ---------- Passos ---------- */
 .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: passo; position: relative; }
@@ -552,6 +553,9 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
 .opcao input:focus-visible + label { outline: 2px solid var(--ouro-claro); outline-offset: 2px; }
 .opcoes.lista .opcao label { flex-direction: row; justify-content: flex-start; text-align: left; min-height: 0; padding: 18px 20px; }
 .opcoes.lista .opcao label span { display: grid; }
+.opcao.recomendada label { border-color: rgba(243,220,107,.45); }
+.opcao .nome-linha { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; font-style: normal; }
+.opcao .selo { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--gradiente-ouro); color: #1a1205; font-style: normal; font-family: var(--fonte-tech); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; vertical-align: middle; }
 
 .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .campos .cheio { grid-column: 1 / -1; }

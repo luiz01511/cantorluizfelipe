@@ -24,7 +24,7 @@
   form.data.min = iso;
 
   // formato vindo do link (?formato=)
-  var mapaFormato = { intimista: "f1", "ao-vivo": "f2", completo: "f3" };
+  var mapaFormato = { "ao-vivo": "f2", completo: "f3" };
   var q = new URLSearchParams(location.search).get("formato");
   if (q && mapaFormato[q]) document.getElementById(mapaFormato[q]).checked = true;
 
@@ -39,6 +39,8 @@
       } else campo.value = salvo[k];
     });
   } catch (e) {}
+  // sem escolha anterior, já vem marcado o show completo (formato recomendado)
+  if (!form.formato.value) document.getElementById("f3").checked = true;
   form.addEventListener("input", function () {
     try { localStorage.setItem(CHAVE, JSON.stringify(dados())); } catch (e) {}
   });
