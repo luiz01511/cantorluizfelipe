@@ -139,6 +139,37 @@
     return m;
   }
 
+  // cópia do pedido por e-mail para o Luiz, caso o cliente não chegue a mandar a mensagem no WhatsApp
+  function enviarEmail() {
+    var email = (window.LF_CONFIG || {}).emailPedidos;
+    if (!email) return;
+    var d = dados();
+    var corpo = {
+      _subject: "Novo pedido de orçamento: " + d.nome + " (" + d.tipo + ")",
+      _template: "table",
+      _captcha: "false",
+      Nome: d.nome,
+      WhatsApp: d.telefone,
+      "Link para chamar": "https://wa.me/55" + d.telefone.replace(/\D/g, ""),
+      Evento: d.tipo,
+      Data: dataBR(d.data) + (d.horario ? " às " + d.horario : ""),
+      Cidade: d.cidade,
+      Local: d.local || "-",
+      Convidados: d.convidados,
+      Formato: d.formato,
+      "Observações": d.obs || "-",
+      Origem: location.href,
+    };
+    try {
+      fetch("https://formsubmit.co/ajax/" + encodeURIComponent(email), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(corpo),
+        keepalive: true,
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   function ir(n) {
     atual = n;
     etapas.forEach(function (e) { e.classList.toggle("ativa", e.getAttribute("data-etapa") === String(n)); });
@@ -160,6 +191,7 @@
     var link = window.LF_linkWhats(mensagem());
     document.getElementById("link-final").href = link;
     ir("ok");
+    enviarEmail();
     window.open(link, "_blank", "noopener");
   }
 
