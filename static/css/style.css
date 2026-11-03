@@ -632,3 +632,36 @@ body.carregado .hero h1 .linha:nth-child(3) > span { transition-delay: .24s; }
   .videos-grade:not(.quatro) .video-card:nth-child(3) { display: none; }
   .tv-selo { font-size: 9px; }
 }
+
+/* ---------- Música de fundo ---------- */
+.musica-player { position: fixed; left: -9999px; bottom: 0; width: 200px; height: 113px; opacity: 0; pointer-events: none; }
+.musica {
+  position: fixed; left: 20px; bottom: 20px; z-index: 90;
+  display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; border-radius: 999px;
+  border: 1px solid rgba(243,220,107,.45); background: rgba(10,9,6,.85); backdrop-filter: blur(10px);
+  color: var(--branco); box-shadow: 0 12px 30px -10px rgba(0,0,0,.8); text-align: left;
+  transition: border-color .3s, transform .3s;
+}
+.musica:hover { border-color: var(--ouro-claro); transform: translateY(-2px); }
+.musica .eq { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+.musica .eq i { width: 3px; height: 5px; border-radius: 2px; background: var(--gradiente-ouro); }
+.musica.tocando .eq i { animation: eq .9s ease-in-out infinite alternate; }
+.musica.tocando .eq i:nth-child(2) { animation-delay: -.3s; }
+.musica.tocando .eq i:nth-child(3) { animation-delay: -.6s; }
+.musica.tocando .eq i:nth-child(4) { animation-delay: -.15s; }
+@keyframes eq { from { height: 4px; } to { height: 18px; } }
+.musica .info { display: grid; line-height: 1.2; }
+.musica .info small { font-family: var(--fonte-tech); font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--ouro-claro); }
+.musica .info strong { font-family: var(--fonte-titulo); font-size: 17px; font-weight: 600; }
+.musica .acao { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--gradiente-ouro); color: #1a1205; }
+.musica .acao svg { width: 16px; height: 16px; }
+.musica:not(.tocando) { animation: chamar 2.4s ease-in-out infinite; }
+@keyframes chamar { 50% { box-shadow: 0 0 0 6px rgba(243,220,107,.12), 0 12px 30px -10px rgba(0,0,0,.8); } }
+@media (max-width: 760px) {
+  .musica { left: 12px; bottom: 80px; padding: 6px 6px 6px 12px; gap: 10px; }
+  .musica.sem-barra { bottom: 12px; }
+  .musica .info strong { font-size: 15px; }
+  .musica .acao { width: 32px; height: 32px; }
+  .musica.liberada .info { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .musica, .musica .eq i { animation: none !important; } }

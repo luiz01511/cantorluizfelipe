@@ -134,6 +134,9 @@
     }, { passive: true });
   }
 
+  // avisa a música de fundo (musica.js) quando algum vídeo com som começa ou para
+  function avisarSom(tocando) { document.dispatchEvent(new CustomEvent(tocando ? "lf:som" : "lf:sem-som")); }
+
   /* ---------- Som do vídeo do hero ---------- */
   var somBtn = document.querySelector(".hero-celular .som");
   if (somBtn) {
@@ -146,6 +149,7 @@
       if (!vHero.muted) { vHero.currentTime = 0; vHero.play(); }
       somBtn.innerHTML = vHero.muted ? icMudo : icSom;
       somBtn.setAttribute("aria-label", vHero.muted ? "Ativar som" : "Desativar som");
+      avisarSom(!vHero.muted);
     });
   }
 
@@ -192,7 +196,9 @@
       if (poster) v.poster = poster.currentSrc || poster.src;
       lbConteudo.appendChild(v);
       var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+      avisarSom(true);
     } else {
+      avisarSom(false);
       var img = document.createElement("img");
       var src = el.querySelector("img");
       img.src = el.getAttribute("data-full") || (src && (src.currentSrc || src.src));
@@ -216,6 +222,7 @@
     lb.classList.remove("aberto");
     document.body.style.overflow = "";
     setTimeout(function () { lbConteudo.innerHTML = ""; }, 400);
+    avisarSom(false);
   }
   document.querySelectorAll("[data-abrir]").forEach(function (el) {
     el.setAttribute("tabindex", "0");
