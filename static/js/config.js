@@ -10,5 +10,5 @@ window.LF_CONFIG = {
   whatsappExibicao: "(11) 94562-7572",
   instagram: "cantorluiz.felipe",
   cidadeBase: "São Paulo - SP",
-  emailPedidos: "",
+  emailPedidos: "luiz01511@gmail.com",
 };
